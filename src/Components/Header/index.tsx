@@ -1,4 +1,4 @@
-import React, { ReactChildren, ReactChild } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 import Logo from "../../Assets/logo.svg";
@@ -7,10 +7,10 @@ import BackIcon from "../../Assets/icons/back.svg";
 import "./styles.css";
 
 interface Props {
-  children: JSX.Element[] | JSX.Element;
+  title: string;
 }
 
-export default function Header(props: Props) {
+const Header: React.FC<Props> = (props) => {
   return (
     <header className="page-header">
       <div className="top-bar-container">
@@ -19,7 +19,12 @@ export default function Header(props: Props) {
         </Link>
         <img src={Logo} alt="Proffy" />
       </div>
-      <div className="header-content">{props.children}</div>
+      <div className="header-content">
+        <strong>{props.title}</strong>
+        {props.children}
+      </div>
     </header>
   );
-}
+};
+
+export default Header;
