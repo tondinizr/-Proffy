@@ -1,10 +1,12 @@
 import React from "react";
+import "./Assets/styles/global.css";
+import Landing from "./Pages/Landing";
 
 function App() {
   return (
-    <div>
-      <h1>Proofy</h1>
-    </div>
+    <>
+      <Landing />
+    </>
   );
 }
 
