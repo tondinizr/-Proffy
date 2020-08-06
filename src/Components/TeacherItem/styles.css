@@ -12,7 +12,8 @@
   align-items: center;
 }
 
-.teacher-item header img {
+.teacher-item header img,
+.teacher-item header svg {
   width: 8rem;
   height: 8rem;
   border-radius: 50%;
@@ -56,10 +57,16 @@
   display: block;
 }
 
-.teacher-item footer button {
+.teacher-item footer #none strong {
+  color: var(--color-primary);
+  font-size: 1.6rem;
+  display: unset;
+}
+
+.teacher-item footer a {
   width: 20rem;
   height: 5.6rem;
-  background: var(--color-secundary);
+  background: var(--color-secondary);
   color: var(--color-button-text);
   border: 0;
   border-radius: 0.8rem;
@@ -70,10 +77,11 @@
   justify-content: space-evenly;
   text-decoration: none;
   transition: 0.2;
+  text-decoration: none;
 }
 
-.teacher-item footer button:hover {
-  background: var(--color-secundary-dark);
+.teacher-item footer a:hover {
+  background: var(--color-secondary-dark);
 }
 
 @media (min-width: 700px) {
@@ -91,7 +99,7 @@
     margin-left: 1.6rem;
   }
 
-  .teacher-item footer button {
+  .teacher-item footer a {
     width: 24.5rem;
     font-size: 1.6rem;
     justify-content: center;

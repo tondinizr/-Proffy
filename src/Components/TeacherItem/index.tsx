@@ -1,41 +1,84 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+import { FaUserTimes } from "react-icons/fa";
 
 import WhatsIcon from "../../Assets/icons/whatsapp.svg";
-
 import "./styles.css";
+import api from "../../Services/api";
 
-const TeacherItem = () => {
+export interface Teacher {
+  id: number;
+  subject: string;
+  cost: number;
+  avatar: string;
+  bio: string;
+  name: string;
+  whatsapp: string;
+}
+
+interface teacherItemProps {
+  teacher: Teacher;
+}
+
+function replace(text: string) {
+  return text.replace(/([^\d])+/gim, "");
+}
+
+const TeacherItem: React.FC<teacherItemProps> = ({ teacher }) => {
+  function createConnection() {
+    api.post("connections", {
+      user_id: teacher.id,
+    });
+  }
   return (
-    <article className="teacher-item">
+    <article className="teacher-item" key={teacher.id}>
       <header>
-        <img
-          src="https://avatars1.githubusercontent.com/u/48892060?s=460&u=ce1d527aa163cbe0e163b1401e7db3b1fe19d086&v=4"
-          alt="Welinton Diniz"
-        />
+        <img src={teacher.avatar} alt={teacher.name} />
         <div>
-          <strong>Welinton Diniz</strong>
-          <span>Informática</span>
+          <strong>{teacher.name}</strong>
+          <span>{teacher.subject}</span>
         </div>
       </header>
-      <p>
-        My name is Welinton Diniz, from Brazil, I am currently unemployed, but
-        in my spare time I help to{" "}
-        <a href="https://www.instagram.com/projetoemanuel1">
-          ONG Projeto Emanuel
-        </a>
-        . I am in a serious relationship with JavaScript, especially React and
-        React Native!
-      </p>
+      <p>{teacher.bio}</p>
 
       <footer>
         <p>
           Preço/Hora
-          <strong> R$ 20,00</strong>
+          <strong> R$ {teacher.cost}</strong>
         </p>
-        <button type="button">
+        <a
+          target="_blank"
+          onClick={createConnection}
+          href={`https://wa.me/${replace(teacher.whatsapp)}`}
+        >
           <img src={WhatsIcon} alt="WhatsApp" />
           Entrar em contato
-        </button>
+        </a>
+      </footer>
+    </article>
+  );
+};
+
+export const TeacherNone = () => {
+  const history = useHistory();
+
+  return (
+    <article className="teacher-item">
+      <header>
+        <FaUserTimes />
+        <div>
+          <strong>Professor não encontrado</strong>
+          <span>Matéria não localizada</span>
+        </div>
+      </header>
+      <p>Selecione outras matérias, dias e horários</p>
+
+      <footer>
+        <p id="none">
+          Selecione outra <strong>matéria</strong>,{" "}
+          <strong>dia da semana</strong> e/ou <strong>horário</strong> para
+          listar os professores
+        </p>
       </footer>
     </article>
   );
